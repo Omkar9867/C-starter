@@ -32,14 +32,29 @@ int main() {
     // }
     
     //while loop ----->
-    int countdown = 0;
-    while(countdown <= 5){
-        printf("Marks of students marks[%d] is %d\n", countdown, marks[countdown]);
-        countdown++;
+    // int countdown = 0;
+    // while(countdown <= 5){
+    //     printf("Marks of students marks[%d] is %d\n", countdown, marks[countdown]);
+    //     countdown++;
+    // }
+
+    //Block scope
+    int x = 40;
+    {
+        int x = 30;
+        x++;
+        printf("Value of x inside curly braces is %d\n", x); // the value is x in this curly braces only
     }
+    printf("Value of x outside curly braces is %d\n", x); // so this value of x will not have access to the value of x inside the curly braces
 
     return 0;
 }
 
 //Compilation --->
 //Every time we change the code, we need to recomplie it. Generally we donot do this in javascript, python etc.
+
+//Bugs
+//Tips while solving bus:
+//1. Start by fixing the first error.
+//2. Don't panic
+//3. Make a fewer changes, save, compile and then retest your code. 
