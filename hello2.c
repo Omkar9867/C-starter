@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include <stdlib.h>
+#include <string.h>
 
 //Recurssion
 // void func(int a){
@@ -51,9 +52,9 @@ int main(){
 
 
     //Malloc & Free
-    int sizeOfArr = 0;
+    // int sizeOfArr = 0;
     // scanf("%d", &sizeOfArr);
-    int* dynamicArr = malloc(sizeof(int)*sizeOfArr);
+    // int* dynamicArr = malloc(sizeof(int)*sizeOfArr);
     // dynamicArr[0] = 1;
     // dynamicArr[1] = 2;
     // dynamicArr[2] = 3;
@@ -63,26 +64,49 @@ int main(){
     // dynamicArr[6] = 6;
     // dynamicArr[7] = 6;
     // dynamicArr[8] = 6;
-    for (int i = 0; i < sizeOfArr; i++){
-        printf("%d\n", dynamicArr[i]);
-    } 
-    printf("Size of arr is: %d\n", sizeof(dynamicArr));
-    free(dynamicArr);
-    printf("Size of arr is: %d\n", sizeof(dynamicArr));
+    // for (int i = 0; i < sizeOfArr; i++){
+    //     printf("%d\n", dynamicArr[i]);
+    // } 
+    // printf("Size of arr is: %d\n", sizeof(dynamicArr));
+    // free(dynamicArr);
+    // printf("Size of arr is: %d\n", sizeof(dynamicArr));
     
     //The reason to use Malloc and Free is because it allows to determine while our program is running how much memory to allocate,
     //And we use pointer to 'point-to' the dynamically allocated memory.
 
     //Pass by value
-    void setVal(int* val) {
-        *(val) = 999;
-    };
-    int x = 10;
+    // void setVal(int* val) {
+    //     *(val) = 999;
+    // };
+    // int x = 10;
     // setVal(x); //When we pass the x to the fucntion it makes a copy of the value of x and pass it to the function, so the value of x will not change
     // printf("Value of x is: %d\n", x);
-    //but if you want to chnage value:
-    setVal(&x); //passing the address of x, but the function need to access this address by making its value to pointer
-    printf("Value of x is: %d\n", x);
+    //but if you want to change value:
+    // setVal(&x); //passing the address of x, but the function need to access this address by making its value to pointer
+    // printf("Value of x is: %d\n", x);
+
+    //Strings and Literals
+    char* x = "Hello World\0";
+    char y[] = "Hello World";
+    //there's difference between char* and char[], char* is the pointer to the string literal, and char[] is the array of characters, and array can be modified
+    // x[0] = '2';
+    y[0] = '2';
+    // printf("Value of x is: %c", x);
+    printf("Value of x is: %c", y[0]);
+    printf("Length of str x is: %d\n", strlen(x));
+
+    //Struct
+    struct student{
+        char name[50];
+        int age;
+        float marks;
+    };
+
+    struct student mike;
+    mike.age = 20;
+    mike.marks = 90.5;
+    printf("Age of mike is: %d\n", mike.age);
+
     return 0;
 }
 
