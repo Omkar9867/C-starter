@@ -23,6 +23,43 @@
 //     func(a-1);
 // }
 
+    //Struct
+    // struct student{
+    //     char name[50];
+    //     int age;
+    //     float marks;
+    // };
+
+    // struct student mike;
+    // mike.age = 20;
+    // mike.marks = 90.5;
+    // printf("Age of mike is: %d\n", mike.age);
+
+    //Alternately we can add typedef to the struct so no need to write struct when declaring the variable
+    typedef struct student{
+        char* name;
+        int age;
+        float marks;
+    } student_t;
+
+    // void printStudent(student_t s){
+    //     printf("Name:          %d\n", s.name);
+    //     printf("Age:           %d\n", s.age);
+    //     printf("Marks:         %d\n", s.marks);
+    // }
+
+    void printStudent(student_t* s){               //If expecting as pointer to struct then we need to use -> to access the values
+        printf("Name:          %d\n", s->name);  // '->' is done similar as (*s).name ====> first dereference i.e find the address of the pointer field and then access the value
+        printf("Age:           %d\n", s->age);
+        printf("Marks:         %d\n", s->marks);
+    }
+
+    //Linked List struct
+    typedef struct node{
+        int data;
+        struct node* next;
+    }node_t;
+
 int main(){
     //Conditional statements
     // func(-3);
@@ -90,25 +127,49 @@ int main(){
     char y[] = "Hello World";
     //there's difference between char* and char[], char* is the pointer to the string literal, and char[] is the array of characters, and array can be modified
     // x[0] = '2';
-    y[0] = '2';
+    // y[0] = '2';
     // printf("Value of x is: %c", x);
-    printf("Value of x is: %c", y[0]);
+    printf("Value of x is: %c\n", x[0]);
     printf("Length of str x is: %d\n", strlen(x));
 
-    //Struct
-    struct student{
-        char name[50];
-        int age;
-        float marks;
-    };
 
-    struct student mike;
+    student_t mike;
+    mike.name = "Mike";
     mike.age = 20;
     mike.marks = 90.5;
-    printf("Age of mike is: %d\n", mike.age);
+    printStudent(&mike);
+    // printf("Age of mike is: %d\n", mike.age);
+
+    // linkedList acccess
+    node_t one;
+    node_t two;
+    node_t three;
+
+    one.data = 1;
+    one.next = &two;
+    two.data = 2;
+    two.next = &three;
+    three.data = 3;
+    three.next = NULL;
+
+    // In this step i linked each node together by pointing the field of each node_t next field to the address of the another node.
+    // the last node points to NUll to indicate that it is the last node in the linked list.
+    // Linked data structures can have any numbers of connections. One reason to use linked data structures is that they can grow and shrink in size by
+    //removing or rearranging the pointers
+
+    // Looping through the linked data structures
+    node_t* iterate = &one;
+    while(iterate != NULL){
+        printf("Data: %d\n", iterate->data);
+        iterate = iterate->next;
+    }
 
     return 0;
 }
 
 //Malloc [M-Memory, alloc-allocator] ==> Return a pointer to the start of a specific number of bytes. (Note 'sizeof(type)' retrieves the number of bytes of a type)
 //Free ==> Release the memory that was allocated by malloc. (Note: It is important to free the memory that was allocated by malloc to avoid memory leaks)
+
+//Linked list
+// Linked list are the linked data structure, where each node contains the data and the address of the next node.
+// The key idea is that a part of our 'node_t' struct is a pointer to another 'node_t' struct.
