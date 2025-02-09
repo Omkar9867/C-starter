@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include "math.h"
-#include "math.c"
 
 //Entry point of the program
 int main(){
