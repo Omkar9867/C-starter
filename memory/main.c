@@ -26,18 +26,38 @@
 // The heap is where our dynamic memory is stored. It is a large pool of memory that can be used to store data that needs to be accessed from anywhere in the program.
 // We can allocat or free this memory i.e malloc and free.
 
+//Lets call the malloc on heap as a function.
+int* allocateOnHeap(int size){
+    int* array = (int*)malloc(sizeof(int)*size);
+    printf("Heap memory address = %p\n", array); // we can see the address of the memory
+    printf("Heap memory address = %p\n", &array); // we can see the address of the memory
+    for(int i=0; i<size; i++){
+        array[i] = i;
+    }
+    return array;
+}
+
+//We allocated memory on heap using malloc, but we have to free it as well. so the array when return and done using, we have to free it.
 
 
 int main(){
 
-    int x = 4; //local variable
-    foo();
+    // int x = 4; //local variable
+    // foo();
 
-    malloc(sizeof(int)*5000); //heap has large memory so can store this much , but in stack it may overflow. But it returns a void* pointer. What is it?
+    // malloc(sizeof(int)*5000); //heap has large memory so can store this much , but in stack it may overflow. But it returns a void* pointer. What is it?
     //void* means any data type, but we have to explicitly cast it to the data type first.
-    int* arr = (int*)malloc(sizeof(int)*5000); //casting void* to int*.
+    // int* arr = (int*)malloc(sizeof(int)*5000); //casting void* to int*.
     // Since it is a long lived memory we have to free it.
-    free(arr);
+    // free(arr);
+    int size = 7;
+    int* heapArr = allocateOnHeap(size);
+    printf("Heap memory address = %p\n", heapArr); // Address would be same what the function returned array is as it is a pointer.
+    printf("Heap memory address = %p\n", &heapArr); // But the local variable i.e. stack address is different in this case &heapArr and in func &arr
+    for(int i=0; i<size; i++){
+        printf("heapData[%d] = %d\n",i, heapArr[i]);
+    };
+    free(heapArr);
     return 0;
 }
 
