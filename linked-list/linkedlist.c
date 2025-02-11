@@ -10,42 +10,46 @@ LinkedList_t* CreateLinkedList(){
 };
 
 // malloc five new linked list and then return a pointer to that linked list
-LinkedList_t* CreateLinkedListOfFiveItems(){
-    //Create List
-    LinkedList_t* newList = (LinkedList_t*)malloc(sizeof(LinkedList_t));
-
-    Node_t* newNode1 = (Node_t*)malloc(sizeof(Node_t));
-    newNode1->data = 1;
-    Node_t* newNode2 = (Node_t*)malloc(sizeof(Node_t));
-    newNode2->data = 2;
-    Node_t* newNode3 = (Node_t*)malloc(sizeof(Node_t));
-    newNode3->data = 3;
-    Node_t* newNode4 = (Node_t*)malloc(sizeof(Node_t));
-    newNode4->data = 4;
-    Node_t* newNode5 = (Node_t*)malloc(sizeof(Node_t));
-    newNode5->data = 5;
-
-    //Link the nodes
-    newList->head = newNode1;
-    newNode1->next = newNode2;
-    newNode2->next = newNode3;
-    newNode3->next = newNode4;
-    newNode4->next = newNode5;
-    newNode5->next = NULL;
-};
-
-//Alternate method to do this is:
 // LinkedList_t* CreateLinkedListOfFiveItems(){
 //     //Create List
-//     LinkedList_t* newList = CreateLinkedList();
+//     LinkedList_t* newList = (LinkedList_t*)malloc(sizeof(LinkedList_t));
 
-//     //Create Nodes and Linke nodes
-//     AppendToLinkedList(newList, 1);
-//     AppendToLinkedList(newList, 2);
-//     AppendToLinkedList(newList, 3);
-//     AppendToLinkedList(newList, 4);
-//     AppendToLinkedList(newList, 5);
+//     Node_t* newNode1 = (Node_t*)malloc(sizeof(Node_t));
+//     newNode1->data = 1;
+//     Node_t* newNode2 = (Node_t*)malloc(sizeof(Node_t));
+//     newNode2->data = 2;
+//     Node_t* newNode3 = (Node_t*)malloc(sizeof(Node_t));
+//     newNode3->data = 3;
+//     Node_t* newNode4 = (Node_t*)malloc(sizeof(Node_t));
+//     newNode4->data = 4;
+//     Node_t* newNode5 = (Node_t*)malloc(sizeof(Node_t));
+//     newNode5->data = 5;
+
+//     //Link the nodes
+//     newList->head = newNode1;
+//     newNode1->next = newNode2;
+//     newNode2->next = newNode3;
+//     newNode3->next = newNode4;
+//     newNode4->next = newNode5;
+//     newNode5->next = NULL;
+
+//     return newList;
 // };
+
+//Alternate method to do this is:
+LinkedList_t* CreateLinkedListOfFiveItems(){
+    //Create List
+    LinkedList_t* newList = CreateLinkedList();
+
+    //Create Nodes and Linke nodes
+    AppendToLinkedList(newList, 1);
+    AppendToLinkedList(newList, 2);
+    AppendToLinkedList(newList, 3);
+    AppendToLinkedList(newList, 4);
+    AppendToLinkedList(newList, 5);
+
+    return newList;
+};
 
 // Print the linked lists
 void PrintLinkedList(LinkedList_t* list){
@@ -58,7 +62,30 @@ void PrintLinkedList(LinkedList_t* list){
 
 // free the linked list as it is malloc and stored in the heap as previous chapter discussed
 void FreeLinkedList(LinkedList_t* list){
+    // Also add first step to see if the list is null
+    if(list == NULL){
+        free(list);
+        return;
+    }
 
+    Node_t* current = list->head;
+    if(current == NULL){
+        return;
+    }
+    //if current not null then find the next
+    Node_t* next = current->next;
+    while(current != NULL){
+        free(current);
+        current = next;
+        // Check if the current is not null which he was updated as next
+        if(current != NULL){
+            next = current->next;
+        }
+    }
+
+    // Remember this last step to free the linkedlist we created. 
+    // Every malloc should have a free to avoid memory leaks.
+    free(list);
 };
 
 // Append a new node to the end of the linked list
@@ -84,3 +111,9 @@ void AppendToLinkedList(LinkedList_t* list, int data){
         iter->next = newNode;
     }
 };
+
+
+
+// Strategy to free all the nodes. is to use temporary 2 node_t's 
+// current -- Points to the current node
+// next -- Points to the next node
