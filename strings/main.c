@@ -21,28 +21,40 @@ size_t str_length(const char* input){ //const is a way to not allow the function
 }
 
 // Function StrAppend -> probably done by strcat
-char* str_append(char* destination, const char* source){ // commin abbrevation dst = "destination" and src = "source"
-    size_t dst_length = str_length(destination);
-    size_t src_length = str_length(source);
+// char* str_append(char* src_1, const char* src_2){ // commin abbrevation dst = "destination" and src = "source"
+//     size_t dst_length = str_length(src_1);
+//     size_t src_length = str_length(src_2);
     
-    char* new_string = (char*)malloc(sizeof(char)*(dst_length + src_length + 1)); // +1 for the \0
-    // Copy the destination string to the new string
-    int i = 0;
-    while(i<dst_length){
-        new_string[i] = destination[i];
-        i++;
+//     char* new_string = (char*)malloc(sizeof(char)*(dst_length + src_length + 1)); // +1 for the \0
+//     // Copy the destination string to the new string
+//     int i = 0;
+//     while(i<dst_length){
+//         new_string[i] = src_1[i];
+//         i++;
+//     }
+//     // Copy the source string to the new string
+//     int j = 0;
+//     while(j<src_length){
+//         new_string[dst_length+j] = src_2[j];
+//         j++;
+//     }
+//     // Add the null terminator
+//     new_string[dst_length+src_length] = '\0';
+//     // destination[0] = 'B';
+//     // destination = new_string;
+//     return new_string;
+// }
+
+//Modular approach
+char* str_append(char* dest, const char* src){
+    size_t dest_len = str_length(dest);
+    size_t src_len = str_length(src);
+    size_t i;
+    for(i=0; i<src_len && src[i] != '\0'; i++){
+        dest[dest_len+i] = src[i];
     }
-    // Copy the source string to the new string
-    int j = 0;
-    while(j<src_length){
-        new_string[dst_length+j] = source[j];
-        j++;
-    }
-    // Add the null terminator
-    new_string[dst_length+src_length] = '\0';
-    // destination[0] = 'B';
-    destination = new_string;
-    return new_string;
+    dest[dest_len+i] = '\0'; //since i was incremented in the loop
+    return dest;
 }
 
 int main(){
@@ -71,7 +83,7 @@ int main(){
     // const char* name3 = "Johnny2"; // This is a way to make the string literal read-only
     // printf("%s\n", name3);
 
-    char name[] = {'J', 'o', 'h', 'n', 'n', 'y', '\0'};
+    char name[20] = {'J', 'o', 'h', 'n', 'n', 'y', '\0'};
     char* new_name = str_append(name, " Doe");
     printf("%s\n", new_name);
     return 0;
@@ -81,3 +93,5 @@ int main(){
 
 // The reason that string literal are not modifiable is because , the C compilar will generate assembly code 
 // and eventually (a binary from the assemble), which stores the string literal in readonly region of the executable binary.
+
+// IN char name[] i added 20 cause name only has enough space to store "Johnny\0". Appending " Doe" would write beyond the bounds of the array, leading to undefined behavior.
