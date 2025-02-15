@@ -124,15 +124,36 @@ int main(){
     // printf("%s\n", name3);
 
     // char name[20] = {'J', 'o', 'h', 'n', 'n', 'y', '\0'};
-    char* name = (char*)malloc(sizeof(char)*6);
-    name[0] = 'J';
-    name[1] = 'o';
-    name[2] = 'h';
-    name[3] = 'n'; 
-    name[4] = '\0'; 
-    char* new_name = str_append(name, " Doe");
-    printf("%s\n", new_name);
-    free(new_name);
+    // char* name = (char*)malloc(sizeof(char)*6);
+    // name[0] = 'J';
+    // name[1] = 'o';
+    // name[2] = 'h';
+    // name[3] = 'n'; 
+    // name[4] = '\0'; 
+    // char* new_name = str_append(name, " Doe");
+    // printf("%s\n", new_name);
+    // free(new_name);
+
+    // A scope of methods
+    {
+        char name[5];
+        name[0] = 'J';
+        name[1] = 'o';
+        name[2] = 'h';
+        name[3] = 'n';
+        name[4] = '!'; 
+        printf("%s\n", name);
+    }
+    //new scope
+    char name2[2];
+    name2[0] = 'O';
+    name2[1] = 'k';
+    printf("%s\n", name2);
+
+    // output of the above in C is: John!8 , OkÇ
+    // C does not automatically 'zero out' the memory. Whatever is left in the memory is what is left in the memory.
+    // reality is all the previous data is left in the stack and data will print until reached null byte in the stack.
+    // In short if print 'OK' it will see the stack still have 'hn!' left in stack so it willl print with it. 
     return 0;
 }
 
