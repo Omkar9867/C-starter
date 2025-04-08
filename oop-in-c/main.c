@@ -25,7 +25,7 @@ void Set_array_t(array_t* self, size_t index, int value){
         return;
     }
     if(index >=0 && index < self->size){
-        self->data[index] == value;
+        self->data[index] = value;
     }
 }
 
@@ -33,7 +33,7 @@ void Set_array_t(array_t* self, size_t index, int value){
 array_t* makeArray(size_t capacity){
     array_t* newArray = (array_t*)malloc(sizeof(array_t));
     //Store the pointer back to memory which holds to its actua; object like class 
-    newArray->self = newArray;
+    newArray->self = newArray; //similar as this.arr = arr
     newArray->data = (int*)malloc(sizeof(int)*capacity);
     newArray->size = capacity;
     // Set up function pointers
@@ -43,8 +43,29 @@ array_t* makeArray(size_t capacity){
     return newArray;
 }
 
+//Array Destructor
+void destroyArray(array_t* self){
+    free(self->data);
+    free(self);
+    //!Note: It is important the order in which we free the , attention to free (array_t) last
+}
+
 
 int main(){
+    array_t* arr = makeArray(10);
+
+    //Set up the array
+    for(int i = 0; i < arr->size; i++){
+        arr->pfnSet(arr->self, i, i); // Can be written as '(arr, i, i)' to demonstrate how oop may have implemented these things from scratch
+    }
+
+    //Get the array
+    for(int i=0; i<arr->size; i++){
+        printf("%d\n", arr->pfnGet(arr->self, i));
+    }
+
+    //Destroy the array
+    destroyArray(arr);
 
     return 0;
 }
