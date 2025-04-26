@@ -69,7 +69,12 @@ Job of linker is to relocation and resolution of symbols. fPIC is needed to make
 When we pass in library, 'lib' and 'so' are not needed.
 Also to put location path: env for this is : LD_LIBRARY_PATH='--dir'  
 
----Final  cmd:"
+---Final 1st cmd:"
+```
+gcc src\main.c -o prog -I include libmymath.so libmymath2.so -L./ 
+```
+
+---Final 2nd cmd:"
 ```
 gcc src\main.c libmymath.so libmymath2.so -I include && a.exe
 ```
