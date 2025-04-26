@@ -51,7 +51,25 @@ s- Adds an index into the archive
 
 
 ===================================Dynamci-Lib===========
+By shared libray we can manage to save a lot of space compared to the build static lib
 --> Share object file :
 .so     -linux
 .dll    -windows
 .dylib  -mac
+
+--Linker errors usually are 'undefined reference' type messages. 
+They are coming from the linker, stating that some code is otherwise missing --specifically the implementation (expected in a.c, .o, .so files)
+
+```gcc -fPIC -shared ./src/file.c -I include -o 'lib'myfile ```
+
+-fPIC --> Position Independent Code
+Job of linker is to relocation and resolution of symbols. fPIC is needed to make sharedLibraries work.
+
+!Note : When '-l', It expects the lib name to have prefix of libfile.so
+When we pass in library, 'lib' and 'so' are not needed.
+Also to put location path: env for this is : LD_LIBRARY_PATH='--dir'  
+
+---Final  cmd:"
+```
+gcc src\main.c libmymath.so libmymath2.so -I include && a.exe
+```
