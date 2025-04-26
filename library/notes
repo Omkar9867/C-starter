@@ -34,7 +34,24 @@ gcc -c ./src/math.c -I./include
 ```
 Similarly for main.c which will provide you (.o) file for that respective name
 Once this object files (.o) are ready we donot need to -I./include again.
+Note: to build the main.c again if changes added.
 
+==================================Static-Lib==============
 --> Object file
 (.o) are compiled code file. They contain symbol (names of variables and functions) of the compiled code.
 There are several type of object files: static, shared . executable
+
+--> Archive
+(ar) tool builds an index of multiple files that can package together
+This allows to distribute a static library that may consist of multiple .o files packaged together.
+``` ar rcs my-file.a file.o file2.o ```
+r - does inssertion into the Archive
+c- Creates Archive
+s- Adds an index into the archive
+
+
+===================================Dynamci-Lib===========
+--> Share object file :
+.so     -linux
+.dll    -windows
+.dylib  -mac
