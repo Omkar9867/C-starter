@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "*.ejs": "html",
-        "math.h": "c"
+        "math.h": "c",
+        "*.tcc": "c",
+        "cmath": "c"
     }
 }
